@@ -19,11 +19,9 @@ print(beacon_struct)
 ## Current limitations
 - only tested on 1k genome CNV data
 - cannot customize VCF imports
-- only convert variants/calls
 
 ## To do
 - CLI
 - convert samples
-- test on mutation data
 
 Please let me know other desired functions
