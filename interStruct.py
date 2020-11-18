@@ -9,7 +9,7 @@
 #         return 'sample name: {};\t data: {}'.format(self.SAMPLENAME, self.DATA)
 
 
-
+# VCF variants and calls
 class Variant:
 
     def __init__(self, chrom, pos, id, ref, alt, qual, filter, info):
@@ -28,17 +28,20 @@ class Variant:
             self.POS, self.ID, self.REF, self.ALT, self.QUAL, self.FILTER, self.INFO, self.CALLS)
 
 
+    # to traverse nested dictionary keys
+    # k is a list of key names
     def nested_dict_get(self, dic, k):
         if len(k) > 1:
             return self.nested_dict_get(dic[k[0]], k[1:])
         else:
             return dic[k[0]]
 
-    def convertBydefinition(self, definition, schema, call):
+    # convert a call to the defined schema
+    def convertCall(self, definition, schema, call):
         for k,v in definition.items():
             if type(v) == dict:
                 schema[k] = {}
-                self.convertBydefinition(v, schema[k], call)
+                self.convertCall(v, schema[k], call)
             elif type(v) == list:
                 if v[0] == 'CALLS':
                     schema[k] = self.nested_dict_get(call, v[1:])
@@ -47,11 +50,12 @@ class Variant:
             else:
                 schema[k] = getattr(self, v, v)
 
-    def toSchema(self, definition):
+    # convert the variant to the defined schema
+    def convertVariant(self, definition):
         output_struct = []
         for call in self.CALLS:
             schema = {}
-            self.convertBydefinition(definition, schema, call)
+            self.convertCall(definition, schema, call)
             output_struct.append(schema)
         return output_struct
 
