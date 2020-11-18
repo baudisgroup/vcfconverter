@@ -15,11 +15,11 @@ class vcfConverter:
         # parse samples
         self.samples = {}
         for sample in vcf_reader.samples:
-            print(sample)
             self.samples[sample] = Sample(name = sample)
 
         # parse variants and calls
         self.variants = []
+
         for record in vcf_reader:
             variant = Variant(record.CHROM, 
                               record.POS, 
@@ -29,6 +29,8 @@ class vcfConverter:
                               record.QUAL, 
                               record.FILTER, 
                               record.INFO)
+          
+
             for call in record.samples:
                 variant.CALLS.append({'NAME':call.sample, 'DATA':call.data._asdict()})
             self.variants.append(variant)    

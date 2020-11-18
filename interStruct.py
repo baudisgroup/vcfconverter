@@ -22,6 +22,7 @@ class Variant:
         self.FILTER = filter
         self.INFO = info
         self.CALLS = []
+        self.PASS = True
 
     def __repr__(self):
         return 'chro:{}; pos:{}; id:{}; ref:{}; alt:{}; qual:{}; filter:{}; info:{};\ncalls:{}'.format(self.CHROM,
@@ -34,7 +35,7 @@ class Variant:
         if len(k) > 1:
             return self.nested_dict_get(dic[k[0]], k[1:])
         else:
-            return dic[k[0]]
+            return dic.get(k[0], None)
 
     # convert a call to the defined schema
     def convertCall(self, definition, schema, call):
