@@ -4,7 +4,7 @@ Convert a VCF file to a customized data structure. Developed to facilitate data 
 ## Usage
 The current proto version converts VCF files from the 1k genome project to the Beacon V2 [specification](https://github.com/ga4gh-beacon/specification-v2-default-schemas/blob/master/default_variant_schema.yaml).
 
-The user needs to privde a `definition.yaml` file, which describes the mapping of the desired terms and the corresponding VCF values. An example `definition.yaml` is proivded.
+User needs to privde a `definition.yaml` file, which describes the mapping of the desired terms and the corresponding VCF values. An example `definition.yaml` is proivded.
 
 ## Example
 ```Python
